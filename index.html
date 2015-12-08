@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Traffic Light</title>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/libs/bootbox.min.js"></script>
+
+    <script type="text/javascript" src="js/libs/three.js"></script>
+    <script type="text/javascript" src="js/libs/controls/OrbitControls.js"></script>
+    <script type="text/javascript" src="js/libs/controls/FlyControls.js"></script>
+    <script src="js/libs/libs/stats.min.js"></script>
+    <script src="js/libs/libs/physi.js"></script>
+    <script src="js/libs/GPUParticleSystem.js"></script>
+
+    <script type="text/javascript" src="js/random.js"></script>
+    <script type="text/javascript" src="js/time.js"></script>
+    <script type="text/javascript" src="js/asset.js"></script>
+    <script type="text/javascript" src="js/road.js"></script>
+    <script type="text/javascript" src="js/trafficlight.js"></script>
+    <script type="text/javascript" src="js/block.js"></script>
+    <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/city.js"></script>
+    <script type="text/javascript" src="js/car.js"></script>
+    <script type="text/javascript" src="js/compass.js"></script>
+    <script type="text/javascript" src="js/target.js"></script>
+    <script type="text/javascript" src="js/game.js"></script>
+    <script type="text/javascript">
+        function run() {
+            Physijs.scripts.worker = 'js/libs/libs/physijs_worker.js';
+            Physijs.scripts.ammo = 'ammo.js';
+            Game.setContainer(document.getElementById( 'main_view' ));
+            Game.setCompassContainer(document.getElementById( 'rb_panel' ));
+            Game.start();
+        }
+    </script>
+
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+        }
+        #rb_panel {
+            width: 300px;
+            height: 300px;
+            background: black;
+            bottom: 10px;
+            right: 10px;
+            position: absolute;
+        }
+
+        #hp_panel {
+            width: 60%;
+            background: rgba(191, 191, 191, 0.17);
+            top: 10px;
+            right: 10px;
+            position: absolute;
+        }
+
+        #hp_progress {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body onload="run()">
+    <div id="main_view"></div>
+    <div id="rb_panel"></div>
+    <div id="hp_panel"><progress id="hp_progress" value="100" max="100"</progress></div>
+</body>
+</html>
