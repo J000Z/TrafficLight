@@ -182,7 +182,7 @@ var Game = (function(document){
     }
 
     function start() {
-        bootbox.prompt({title: "How far is the destance?", value: 3, callback: function(result) {
+        bootbox.prompt({title: "How far is the destination?", value: 3, callback: function(result) {
             distance = result !== null ? parseInt(result) : 3;
             init();
         }});
