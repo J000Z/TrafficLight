@@ -4,6 +4,15 @@
 
 <head>
     <title>Traffic Light</title>
+    <script type="text/javascript">
+        var option = {}
+        option.follow_car = true;
+
+        function camera_switch(cb) {
+            console.log("follow car " + cb.checked);
+            option.follow_car = cb.checked;
+        }
+    </script>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!-- Optional theme -->
@@ -42,6 +51,43 @@
     </script>
 
     <style>
+    .onoffswitch {
+        position: relative; width: 55px;
+        -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    }
+    .onoffswitch-checkbox {
+        display: none;
+    }
+    .onoffswitch-label {
+        display: block; overflow: hidden; cursor: pointer;
+        height: 20px; padding: 0; line-height: 20px;
+        border: 0px solid #FFFFFF; border-radius: 30px;
+        background-color: #9E9E9E;
+    }
+    .onoffswitch-label:before {
+        content: "";
+        display: block; width: 30px; margin: -5px;
+        background: #FFFFFF;
+        position: absolute; top: 0; bottom: 0;
+        right: 31px;
+        border-radius: 30px;
+        box-shadow: 0 6px 12px 0px #757575;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label {
+        background-color: #42A5F5;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label, .onoffswitch-checkbox:checked + .onoffswitch-label:before {
+       border-color: #42A5F5;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+        margin-left: 0;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label:before {
+        right: 0px;
+        background-color: #2196F3;
+        box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.2);
+    }
+
         body {
             /* set margin to 0 and overflow to hidden, to go fullscreen */
             margin: 0;
@@ -68,11 +114,78 @@
             width: 100%;
         }
 
+        #lb_panel {
+            background: transparent;
+            bottom: 10px;
+            left: 10px;
+            position: absolute;
+            color:#2196F3;
+        }
+
     </style>
+    <script id="vertexShader" type="x-shader/x-vertex">
+      varying vec2 vUv;
+      uniform float gtime;
+      void main() {
+      	vUv = uv;
+      	vec3 vposition;
+      	//vposition.x = position.x+gtime;
+      	vposition.x = position.x;
+      	vposition.y = position.y;
+      	vposition.z = position.z;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(vposition,1.0);
+
+      }
+    </script>
+
+    <script id="fragmentShader" type="x-shader/x-fragment">
+      uniform vec3 diffuse;
+      uniform float gtime;
+      varying vec2 vUv;
+      void main() {
+      	vec4 color;
+      	// x and y are zero at the center of the face and range from -1 to 1 on the face
+      	float x = 2.0*(vUv.x-0.5);
+      	float y = 2.0*(vUv.y-0.5);
+
+      	// d is the distance of the fragment from the center of the face
+      	float d = sqrt(x*x+y*y);
+        float pi = 3.1415926;
+
+        float angle = acos(x/d);
+        if (y < 0.0) angle = pi*2.0 - angle;
+
+      	color.r = diffuse.r;
+      	color.g = diffuse.g;
+      	color.b = diffuse.b;
+        if (d < 1.0) {
+            color.a = 0.2;
+            if (abs(angle - gtime) < 0.05) {
+                color.a = 0.7;
+                color.r = diffuse.r*(1.0+sin(gtime+10.0*pi*d))/2.0;
+              	color.g = diffuse.g*(1.0+cos(gtime+10.0*pi*d))/2.0;
+            }
+        } else {
+            color.r = 0.0;
+            color.g = 0.0;
+            color.b = 0.0;
+      	    color.a = 0.0;
+        }
+
+      	gl_FragColor = color;
+      }
+    </script>
 </head>
 <body onload="run()">
     <div id="main_view"></div>
     <div id="rb_panel"></div>
     <div id="hp_panel"><progress id="hp_progress" value="100" max="100"</progress></div>
+    <div id="lb_panel">
+        <div class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="camera_switch" onclick='camera_switch(this);' checked>
+            <label class="onoffswitch-label" for="camera_switch"></label>
+        </div>
+        <div style="position:relative;"> Car Follow Camera <div>
+    </div>
 </body>
 </html>

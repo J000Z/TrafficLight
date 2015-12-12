@@ -1,4 +1,4 @@
-var Game = (function(document){
+var Game = (function(document, option){
     var container, stats, scene, camera, physics_stats, cubeCamera, renderer;
     var MARGIN = 0;
     var SCREEN_HEIGHT = window.innerHeight - MARGIN * 2;
@@ -123,7 +123,7 @@ var Game = (function(document){
         stats.update();
         physics_stats.update();
         city.update();
-        updateCamera();
+        if (option.follow_car) updateCamera();
         updateCampass();
         if (checkViolateTrafficRule()) updateHP(-10);
         render();
@@ -265,4 +265,4 @@ var Game = (function(document){
         renderer: function() {return renderer;}
     };
     return o;
-}(document));
+}(document, option));

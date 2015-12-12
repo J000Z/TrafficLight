@@ -48,8 +48,38 @@ function Compass(container){
     var interval = 2;
     var radius = 20;
 
+    uniforms = {
+        diffuse: { type: "c", value: new THREE.Color(0x00AB14) },
+        gtime: {type: "f", value: 10.0}
+    };
+    var vertexShader = document.getElementById('vertexShader').text;
+    console.log(vertexShader);
+    var fragmentShader = document.getElementById('fragmentShader').text;
+
+    var bg_material = new THREE.ShaderMaterial(
+        {
+          uniforms : uniforms,
+          vertexShader : vertexShader,
+          fragmentShader : fragmentShader,
+        });
+
+    var bg_geometry = new THREE.BoxGeometry( radius*2, radius*2, 0.1);
+    var bg_mesh = new THREE.Mesh(bg_geometry, bg_material);
+    //bg_mesh.rotation.x = Math.PI / 2;
+    scene.add(bg_mesh);
+
+    var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+    scene.add( light );
+
+    var directionalLight = new THREE.DirectionalLight(0xffffff);
+    directionalLight.position.set(1, 1, 1).normalize();
+    scene.add(directionalLight);
+
+    camera.lookAt(bg_mesh);
+
     function animate() {
       requestAnimationFrame(animate);
+      uniforms.gtime.value = (uniforms.gtime.value + 0.05) % (Math.PI * 2);
       var delta = clock.getDelta();
       tick += delta;
 
@@ -59,13 +89,13 @@ function Compass(container){
       if (delta > 0) {
           var x;
 
-        options1.position.x = Math.sin(Math.PI*2/interval*(tick % interval)) * radius;
-        options1.position.y = Math.cos(Math.PI*2/interval*(tick % interval)) * radius;
-        options1.position.z = 0; //Math.sin(tick * spawnerOptions.horizontalSpeed + spawnerOptions.verticalSpeed) * 5;
-
-        for (x = 0; x < spawnerOptions.spawnRate; x++) {
-          particleSystem.spawnParticle(options1);
-        }
+        // options1.position.x = Math.sin(Math.PI*2/interval*(tick % interval)) * radius;
+        // options1.position.y = Math.cos(Math.PI*2/interval*(tick % interval)) * radius;
+        // options1.position.z = 0; //Math.sin(tick * spawnerOptions.horizontalSpeed + spawnerOptions.verticalSpeed) * 5;
+        //
+        // for (x = 0; x < spawnerOptions.spawnRate; x++) {
+        //   particleSystem.spawnParticle(options1);
+        // }
 
         var pin_radius = pin.distance > world_radius ? radius+0.5 : (pin.distance/world_radius)*radius;
         options2.position.x = Math.sin(pin.angle) * pin_radius;
