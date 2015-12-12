@@ -1,4 +1,4 @@
-# TrafficLight <sub>[a 3D game]</sub>
+# TrafficLight <sub>[a 3D game made with [three.js](http://threejs.org "three.js") and [Physijs](https://github.com/chandlerprall/Physijs "Physijs")]</sub>
 by Jiancheng Zhu
 
 [Demo http://cheng9393.github.io/TrafficLight](http://cheng9393.github.io/TrafficLight "demo")
