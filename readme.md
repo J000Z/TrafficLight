@@ -1,4 +1,4 @@
-## TrafficLight <sub>[a 3D game]</sub>
+# TrafficLight <sub>[a 3D game]</sub>
 by Jiancheng Zhu
 
 [Demo http://cheng9393.github.io/TrafficLight](http://cheng9393.github.io/TrafficLight "demo")
@@ -9,7 +9,7 @@ Use the camera switch on the left bottom corner to switch between car following 
 
 I created a shader for the compass, to simulate a radar animation. It reads an input variable representing an angle varying from 0 to 2*pi, and highlights the sector at that angle.
 
-What did I learn?
+#### What did I learn?
 - use shaders
 - use three.js
   - basic object, material, scene, camera
@@ -17,7 +17,7 @@ What did I learn?
   - skybox
 
 
-What obstacles did I encountered?
+#### What obstacles did I encountered?
  - Get the direction angle of an object (can not simply use mesh.rotation which only varying from 0 to PI) (solved)
  
  ```javascript
@@ -32,7 +32,7 @@ What obstacles did I encountered?
  - Computation cost (unsolved)
 
 
-##### Credits
+#### Credits
  - Skybox image by macsix
  [http://macsix.deviantart.com/art/Atlantic-Spherical-HDRI-Panorama-Skybox-416316641](http://macsix.deviantart.com/art/Atlantic-Spherical-HDRI-Panorama-Skybox-416316641 "")
  - Constraints, Car - Physijs
