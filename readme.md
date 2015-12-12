@@ -17,8 +17,9 @@ What did I learn?
   - skybox
 
 
- What obstacles did I encountered?
+What obstacles did I encountered?
  - Get the direction angle of an object (can not simply use mesh.rotation which only varying from 0 to PI) (solved)
+ 
  ```javascript
  //a local point in desired direction (relative position)
  var pLocal = new THREE.Vector3( -2, 0, 0 );
