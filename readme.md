@@ -31,7 +31,7 @@ What did I learn?
  - Computation cost (unsolved)
 
 
- ##### Credits
+##### Credits
  - Skybox image by macsix
  [http://macsix.deviantart.com/art/Atlantic-Spherical-HDRI-Panorama-Skybox-416316641](http://macsix.deviantart.com/art/Atlantic-Spherical-HDRI-Panorama-Skybox-416316641 "")
  - Constraints, Car - Physijs
